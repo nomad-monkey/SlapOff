@@ -13,6 +13,7 @@ public class SlapManager : MonoBehaviour
     public float RightHandValue { get; private set; }
     public float LeftHandValue { get; private set; }
     public float Score { get; private set; }
+    public bool IsRightHandInputSelected { get; private set; }
 
     #region Singleton
     public static SlapManager Instance { get; private set; }
@@ -43,7 +44,18 @@ public class SlapManager : MonoBehaviour
         LeftHandValue = InputBridge.Instance.GetControllerVelocity(ControllerHand.Left).magnitude;
         var rightHandScore = RightHandValue * 100.0f * SliderValue;
         var leftHandScore = LeftHandValue * 100.0f * SliderValue;
-        Score = rightHandScore >= leftHandScore ? rightHandScore : leftHandScore;
+        if (rightHandScore >= leftHandScore)
+        {
+            //right hand input selected
+            Score = rightHandScore;
+            IsRightHandInputSelected = true;
+        }
+        else
+        {
+            //left hand input selected
+            Score = leftHandScore;
+            IsRightHandInputSelected = false;
+        }
         
         OnSlapEvent?.Invoke();
     }

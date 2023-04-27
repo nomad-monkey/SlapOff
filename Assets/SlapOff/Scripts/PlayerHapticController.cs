@@ -4,17 +4,25 @@ using UnityEngine;
 public class PlayerHapticController : MonoBehaviour
 {
     private InputBridge _inputBridge;
+    private SlapManager _slapManager;
     
     void Start()
     {
-        SlapManager.Instance.OnSlapEvent.AddListener(SlapHaptic);
-
         _inputBridge = InputBridge.Instance;
+        _slapManager = SlapManager.Instance;
+        
+        _slapManager.OnSlapEvent.AddListener(SlapHaptic);
     }
 
     private void SlapHaptic()
     {
-        _inputBridge.VibrateController(0.2f, 0.4f, 0.2f, ControllerHand.Right);
-        _inputBridge.VibrateController(0.2f, 0.4f, 0.2f, ControllerHand.Left);
+        if (_slapManager.IsRightHandInputSelected)
+        {
+            _inputBridge.VibrateController(0.2f, 0.4f, 0.2f, ControllerHand.Right);
+        }
+        else
+        {
+            _inputBridge.VibrateController(0.2f, 0.4f, 0.2f, ControllerHand.Left);
+        }
     }
 }

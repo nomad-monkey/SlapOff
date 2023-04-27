@@ -13,6 +13,7 @@ public class SlapManager : MonoBehaviour
     public float RightHandValue { get; private set; }
     public float LeftHandValue { get; private set; }
     public float Score { get; private set; }
+    public SlapSide SlapSide { get; private set; }
     public bool IsRightHandInputSelected { get; private set; }
 
     #region Singleton
@@ -31,7 +32,7 @@ public class SlapManager : MonoBehaviour
     }
     #endregion
 
-    private void OnTriggerEnter(Collider other)
+    public void OnSlap(SlapSide slapSide)
     {
         if (_isItTriggered)
         {
@@ -39,6 +40,7 @@ public class SlapManager : MonoBehaviour
         }
         _isItTriggered = true;
         
+        SlapSide = slapSide;
         SliderValue = Mathf.Pow(sliderController.OnEnd(), 2);
         RightHandValue = InputBridge.Instance.GetControllerVelocity(ControllerHand.Right).magnitude;
         LeftHandValue = InputBridge.Instance.GetControllerVelocity(ControllerHand.Left).magnitude;

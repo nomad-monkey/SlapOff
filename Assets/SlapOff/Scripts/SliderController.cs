@@ -1,8 +1,7 @@
-using System;
 using DG.Tweening;
 using UnityEngine;
 
-public class DemoMovement : MonoBehaviour
+public class SliderController : MonoBehaviour
 {
     [SerializeField] private RectTransform indicator;
     [SerializeField] private RectTransform startRectTransform;
@@ -25,19 +24,21 @@ public class DemoMovement : MonoBehaviour
             moveSequence = null;
         }
         
-        indicator.position = startRectTransform.position;
+        var startRectPosition = startRectTransform.position;
+        var endRectPosition = endRectTransform.position;
+        indicator.position = startRectPosition;
         
         moveSequence = DOTween.Sequence();
         
-        moveSequence.Append(indicator.DOMove(endRectTransform.position, movementTime));
-        moveSequence.Append(indicator.DOMove(startRectTransform.position, movementTime));
+        moveSequence.Append(indicator.DOMove(endRectPosition, movementTime));
+        moveSequence.Append(indicator.DOMove(startRectPosition, movementTime));
         moveSequence.SetLoops(100000, LoopType.Restart);
     }
 
-    public void OnEnd()
+    public float OnEnd()
     {
         moveSequence.Kill();
-        Debug.Log(GetPercentage());
+        return GetPercentage();
     }
 
     private float GetPercentage()

@@ -14,6 +14,7 @@ public class OpponentHeadTargetController : MonoBehaviour
     [SerializeField] private Transform downLeftFinalTransform;
 
     private SlapManager _slapManager;
+    private Vector3 _initialPosition;
     
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,7 @@ public class OpponentHeadTargetController : MonoBehaviour
         _slapManager = SlapManager.Instance;
         
         _slapManager.OnSlapEvent.AddListener(MoveTheHead);
+        _initialPosition = headTargetTransform.position;
     }
 
     private void MoveTheHead()
@@ -55,6 +57,8 @@ public class OpponentHeadTargetController : MonoBehaviour
                 break;
         }
 
-        headTargetTransform.DOMove(finalPosition, 0.3f);
+        var sequence = DOTween.Sequence();
+        sequence.Append(headTargetTransform.DOMove(finalPosition, 0.3f));
+        sequence.Insert(0.3f, headTargetTransform.DOMove(_initialPosition, 0.3f));
     }
 }

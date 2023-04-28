@@ -1,3 +1,4 @@
+using System.Collections;
 using BNG;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,6 +8,7 @@ public class SlapManager : MonoBehaviour
     [SerializeField] private SliderController sliderController;
 
     private bool _isItTriggered;
+    private IEnumerator _triggerResetterCoroutine;
 
     public UnityEvent OnSlapEvent;
     public float SliderValue { get; private set; }
@@ -38,7 +40,13 @@ public class SlapManager : MonoBehaviour
         {
             return;
         }
-        _isItTriggered = true;
+
+        if (_triggerResetterCoroutine != null)
+        {
+            StopCoroutine(_triggerResetterCoroutine);
+        }
+        _triggerResetterCoroutine = TriggerResetterCoroutine();
+        StartCoroutine(_triggerResetterCoroutine);
         
         SlapSide = slapSide;
         SliderValue = Mathf.Pow(sliderController.OnEnd(), 2);
@@ -60,5 +68,12 @@ public class SlapManager : MonoBehaviour
         }
         
         OnSlapEvent?.Invoke();
+    }
+
+    private IEnumerator TriggerResetterCoroutine()
+    {
+        _isItTriggered = true;
+        yield return new WaitForSeconds(0.1f);
+        _isItTriggered = false;
     }
 }

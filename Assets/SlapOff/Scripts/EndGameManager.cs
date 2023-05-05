@@ -7,6 +7,7 @@ public class EndGameManager : MonoBehaviour
 {
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject losePanel;
+    [SerializeField] private GameObject gameUIGameObject;
     
     private bool _isButtonReadyToUse;
     
@@ -21,6 +22,7 @@ public class EndGameManager : MonoBehaviour
     {
         _isButtonReadyToUse = true;
         
+        gameUIGameObject.SetActive(false);
         winPanel.SetActive(true);
     }
 
@@ -28,6 +30,7 @@ public class EndGameManager : MonoBehaviour
     {
         _isButtonReadyToUse = true;
         
+        gameUIGameObject.SetActive(false);
         losePanel.SetActive(true);
     }
 

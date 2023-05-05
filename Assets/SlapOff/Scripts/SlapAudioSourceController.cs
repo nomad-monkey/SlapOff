@@ -9,7 +9,7 @@ public class SlapAudioSourceController : MonoBehaviour
         SlapManager.Instance.OnSlapEvent.AddListener(PlaySlapSound);
     }
 
-    private void PlaySlapSound()
+    public void PlaySlapSound()
     {
         slapAudioSource.Play();
     }

@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class EnemyAttackController : MonoBehaviour
@@ -8,6 +7,7 @@ public class EnemyAttackController : MonoBehaviour
     [SerializeField] private HealthController playerHealthController;
     [SerializeField] private float minimumDamageAmount;
     [SerializeField] private float maximumDamageAmount;
+    [SerializeField] private SlapAudioSourceController slapAudioSourceController;
 
     public void Attack()
     {
@@ -16,6 +16,7 @@ public class EnemyAttackController : MonoBehaviour
 
     public void InflictDamage()
     {
+        slapAudioSourceController.PlaySlapSound();
         var damageAmount = Mathf.Round(Random.Range(minimumDamageAmount, maximumDamageAmount));
         playerHealthController.GetDamage(damageAmount);
     }

@@ -16,6 +16,8 @@ public class EnemyWinState : EnemyState
     {
         base.Enter();
         
-        enemyAnimator.Play(_winAnimationName);
+        enemyRig.weight = 0.0f;
+        //enemyAnimator.Play(_winAnimationName);
+        enemyAnimator.SetBool("OnWin", true);
     }
 }

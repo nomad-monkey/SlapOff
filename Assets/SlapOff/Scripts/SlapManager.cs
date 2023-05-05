@@ -66,7 +66,9 @@ public class SlapManager : MonoBehaviour
             Score = leftHandScore;
             IsRightHandInputSelected = false;
         }
-        
+
+        Score = Mathf.Round(Score);
+
         OnSlapEvent?.Invoke();
     }
 

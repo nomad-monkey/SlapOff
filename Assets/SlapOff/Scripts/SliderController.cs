@@ -13,6 +13,7 @@ public class SliderController : MonoBehaviour
 
     private void Start()
     {
+        TurnManager.Instance.onPlayerTurnStarted.AddListener(OnStart);
         OnStart();
     }
 

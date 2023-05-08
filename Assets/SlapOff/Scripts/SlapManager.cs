@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using BNG;
 using UnityEngine;
@@ -34,19 +35,18 @@ public class SlapManager : MonoBehaviour
     }
     #endregion
 
+    private void Start()
+    {
+        TurnManager.Instance.onPlayerTurnStarted.AddListener(() => _isItTriggered = false);
+    }
+
     public void OnSlap(SlapSide slapSide)
     {
         if (_isItTriggered)
         {
             return;
         }
-
-        if (_triggerResetterCoroutine != null)
-        {
-            StopCoroutine(_triggerResetterCoroutine);
-        }
-        _triggerResetterCoroutine = TriggerResetterCoroutine();
-        StartCoroutine(_triggerResetterCoroutine);
+        _isItTriggered = true;
         
         SlapSide = slapSide;
         SliderValue = Mathf.Pow(sliderController.OnEnd(), 2);
@@ -70,12 +70,5 @@ public class SlapManager : MonoBehaviour
         Score = Mathf.Round(Score);
 
         OnSlapEvent?.Invoke();
-    }
-
-    private IEnumerator TriggerResetterCoroutine()
-    {
-        _isItTriggered = true;
-        yield return new WaitForSeconds(0.1f);
-        _isItTriggered = false;
     }
 }

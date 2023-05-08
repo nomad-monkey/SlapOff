@@ -29,6 +29,7 @@ public class EnemyWaitState : EnemyState
         _isSlapEventHappened = true;
         
         TurnManager.Instance.OnPlayerTurnEnded();
-        enemyStateMachine.ChangeState(enemy.EnemyAttackState);
+        _isSlapEventHappened = false;
+        enemyStateMachine.ChangeState(enemy.EnemyTauntState);
     }
 }

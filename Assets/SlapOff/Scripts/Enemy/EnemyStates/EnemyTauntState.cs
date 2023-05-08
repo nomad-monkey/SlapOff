@@ -3,39 +3,36 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
-public class EnemyAttackState : EnemyState
+public class EnemyTauntState : EnemyState
 {
-    private EnemyAttackController _enemyAttackController;
     private CancellationTokenSource _cancellationTokenSource;
-    
-    public EnemyAttackState(Enemy enemy, EnemyStateMachine enemyStateMachine,
-        Animator enemyAnimator, EnemyAttackController enemyAttackController, Rig enemyRig)
+    public EnemyTauntState(Enemy enemy, EnemyStateMachine enemyStateMachine,
+        Animator enemyAnimator, Rig enemyRig)
         : base(enemy, enemyStateMachine, enemyAnimator, enemyRig)
     {
-        _enemyAttackController = enemyAttackController;
     }
 
     public override void Enter()
     {
         base.Enter();
         
-        _cancellationTokenSource = new CancellationTokenSource();
+        TurnManager.Instance.OnEnemyTurnStarted();
         
-        enemy.SetSlapReceiver(false);
+        _cancellationTokenSource = new CancellationTokenSource();
         var cancellationToken = _cancellationTokenSource.Token;
         var waitAndAttackTask = WaitAndAttack(cancellationToken);
     }
 
     private async Task WaitAndAttack(CancellationToken cancellationToken)
     {
-        await Task.Delay(3000, cancellationToken);
+        await Task.Delay(1000, cancellationToken);
         enemyRig.weight = 0.0f;
-        _enemyAttackController.Attack();
-        await Task.Delay(4000, cancellationToken);
+        var tauntTrigger =
+            enemy.EnemyTauntAnimationTriggersList[Random.Range(0, enemy.EnemyTauntAnimationTriggersList.Count)];
+        enemyAnimator.SetBool(tauntTrigger, true);
+        await Task.Delay(2000, cancellationToken);
         
-        TurnManager.Instance.OnEnemyTurnEnded();
-        
-        enemyStateMachine.ChangeState(enemy.EnemyWaitState);
+        enemyStateMachine.ChangeState(enemy.EnemyAttackState);
     }
 
     public override void Exit()

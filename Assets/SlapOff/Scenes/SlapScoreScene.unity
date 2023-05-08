@@ -2281,7 +2281,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 547798006}
-  attackAnimationName: Slap
+  attackAnimationNameList:
+  - Slap
+  - SlapAlternative00
+  - SlapAlternative01
+  - SlapAlternative02
+  - SlapAlternative03
   playerHealthController: {fileID: 1700458427}
   minimumDamageAmount: 150
   maximumDamageAmount: 700

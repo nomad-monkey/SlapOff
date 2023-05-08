@@ -33,7 +33,7 @@ public class EnemyAttackState : EnemyState
         await Task.Delay(3000, cancellationToken);
         enemyRig.weight = 0.0f;
         _enemyAttackController.Attack();
-        await Task.Delay(3000, cancellationToken);
+        await Task.Delay(4000, cancellationToken);
         
         TurnManager.Instance.OnEnemyTurnEnded();
         

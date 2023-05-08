@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAttackController : MonoBehaviour
 {
     [SerializeField] private Animator enemyAnimator;
-    [SerializeField] private string attackAnimationName;
+    [SerializeField] private List<string> attackAnimationNameList;
     [SerializeField] private HealthController playerHealthController;
     [SerializeField] private float minimumDamageAmount;
     [SerializeField] private float maximumDamageAmount;
@@ -11,6 +12,7 @@ public class EnemyAttackController : MonoBehaviour
 
     public void Attack()
     {
+        var attackAnimationName = attackAnimationNameList[Random.Range(0, attackAnimationNameList.Count)];
         enemyAnimator.Play(attackAnimationName);
     }
 

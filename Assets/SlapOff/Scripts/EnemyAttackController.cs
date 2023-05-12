@@ -18,8 +18,8 @@ public class EnemyAttackController : MonoBehaviour
 
     public void InflictDamage()
     {
-        slapAudioSourceController.PlaySlapSound();
         var damageAmount = Mathf.Round(Random.Range(minimumDamageAmount, maximumDamageAmount));
+        slapAudioSourceController.PlayOneOfTheSlapSounds(damageAmount);
         playerHealthController.GetDamage(damageAmount);
     }
 }

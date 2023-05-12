@@ -12,6 +12,8 @@ public class SlapManager : MonoBehaviour
     private IEnumerator _triggerResetterCoroutine;
 
     public UnityEvent OnSlapEvent;
+    public float MaximumSlapScore = 700.0f;
+    public float RawSliderValue { get; private set; }
     public float SliderValue { get; private set; }
     public float RightHandValue { get; private set; }
     public float LeftHandValue { get; private set; }
@@ -49,7 +51,8 @@ public class SlapManager : MonoBehaviour
         _isItTriggered = true;
         
         SlapSide = slapSide;
-        SliderValue = Mathf.Pow(sliderController.OnEnd(), 2);
+        RawSliderValue = sliderController.OnEnd();
+        SliderValue = Mathf.Pow(RawSliderValue, 2);
         RightHandValue = InputBridge.Instance.GetControllerVelocity(ControllerHand.Right).magnitude;
         LeftHandValue = InputBridge.Instance.GetControllerVelocity(ControllerHand.Left).magnitude;
         var rightHandScore = RightHandValue * 100.0f * SliderValue;

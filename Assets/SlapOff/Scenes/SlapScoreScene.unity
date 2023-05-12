@@ -1991,6 +1991,7 @@ MonoBehaviour:
   - OnTaunt00
   - OnTaunt01
   - OnTaunt02
+  - OnTaunt03
 --- !u!1 &829319674
 GameObject:
   m_ObjectHideFlags: 0
@@ -2315,7 +2316,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 165547100202259462, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
       propertyPath: m_RootOrder
-      value: 21
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 457510934753256758, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
       propertyPath: m_RootOrder
@@ -2323,7 +2324,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1291543299337710283, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
       propertyPath: m_RootOrder
-      value: 22
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 1389590655924659984, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
       propertyPath: m_RootOrder
@@ -3372,7 +3373,7 @@ Transform:
   - {fileID: 884848392}
   - {fileID: 1871752039}
   m_Father: {fileID: 547798003}
-  m_RootOrder: 23
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1331110886 stripped
 Transform:

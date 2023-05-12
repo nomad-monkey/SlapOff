@@ -58,7 +58,12 @@ public class EnemyHeadTargetController : MonoBehaviour
         }
 
         var sequence = DOTween.Sequence();
-        sequence.Append(headTargetTransform.DOMove(finalPosition, 0.5f)).SetEase(Ease.OutSine);
+        var score = _slapManager.Score;
+        var minimumScore = 0.0f;
+        var maximumScore = _slapManager.MaximumSlapScore;
+        var editedScore = Mathf.InverseLerp(minimumScore, maximumScore, score);
+        var editedFinalPosition = Vector3.Lerp(_initialPosition, finalPosition, editedScore);
+        sequence.Append(headTargetTransform.DOMove(editedFinalPosition, 0.5f)).SetEase(Ease.OutSine);
         sequence.Insert(0.5f, headTargetTransform.DOMove(_initialPosition, 0.5f));
     }
 }
